@@ -1,0 +1,323 @@
+.hidden { display: none !important; }
+
+.ui-input {
+  width: 100%;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.85rem;
+  border-radius: 0.375rem;
+  border: 1px solid #d4d4d8;
+  background: #ffffff;
+  color: #18181b;
+  outline: none;
+}
+
+.ui-input:focus {
+  border-color: #18181b;
+  box-shadow: 0 0 0 1px #18181b;
+}
+
+[data-theme="dark"] .ui-input {
+  border-color: #3f3f46;
+  background: #18181b;
+  color: #f4f4f5;
+}
+
+[data-theme="dark"] .ui-input:focus {
+  border-color: #e4e4e7;
+  box-shadow: 0 0 0 1px #e4e4e7;
+}
+
+.preview-scale {
+  transform-origin: top left;
+}
+
+/* =========================================================
+   LEMBAR SURAT RESMI (21.59 cm x 33 cm - Folio / F4)
+   ========================================================= */
+.sheet-page {
+  width: 21.59cm;
+  height: 33cm;
+  padding: 0.75cm;
+  background: #ffffff;
+  color: #000000;
+  font-family: "Times New Roman", Cambria, Georgia, serif;
+  font-size: 11pt;
+  line-height: 1.32;
+  position: relative;
+  box-sizing: border-box;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+}
+
+.frame-outer {
+  width: 100%;
+  height: 100%;
+  border: 5px solid #000;
+  padding: 3px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.frame-inner {
+  width: 100%;
+  height: 100%;
+  border: 1.5px solid #000;
+  padding: 0.55cm 0.85cm;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #000;
+  border: 2px solid #fff;
+  outline: 1.5px solid #000;
+  z-index: 3;
+}
+.corner.tl { top: -6px; left: -6px; }
+.corner.tr { top: -6px; right: -6px; }
+.corner.bl { bottom: -6px; left: -6px; }
+.corner.br { bottom: -6px; right: -6px; }
+
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10.5cm;
+  max-height: 12cm;
+  object-fit: contain;
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sheet-content {
+  position: relative;
+  z-index: 2;
+}
+
+.doc-title {
+  text-align: center;
+  font-size: 13pt;
+  font-weight: 700;
+  text-decoration: underline;
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+
+.para {
+  text-align: justify;
+  margin: 6px 0;
+}
+
+.para-tight {
+  text-align: justify;
+  margin: 4px 0 2px;
+}
+
+.party-block {
+  margin: 4px 0 6px;
+}
+
+.party-head {
+  font-size: 10.8pt;
+  margin-bottom: 2px;
+}
+
+.id-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-left: 12px;
+  font-size: 10.6pt;
+}
+.id-table td {
+  padding: 1px 2px;
+  vertical-align: top;
+}
+.id-table .lbl { width: 145px; }
+.id-table .sep { width: 12px; }
+
+.batas-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2px 0 6px 12px;
+  font-size: 10.6pt;
+}
+.batas-table td {
+  padding: 1px 2px;
+  vertical-align: top;
+}
+.batas-table .b-lbl { width: 145px; }
+.batas-table .sep { width: 12px; }
+
+.date-line {
+  text-align: right;
+  margin: 10px 20px 6px 0;
+}
+
+.sign-row-2 {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin: 4px 12px 10px;
+}
+
+.sign-col {
+  width: 44%;
+}
+
+.sign-space {
+  height: 58px;
+}
+
+.materai-wrap {
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 16%;
+}
+
+.materai-box {
+  border: 1px solid #000;
+  padding: 2px 7px;
+  font-size: 7pt;
+  line-height: 1.15;
+  color: #000;
+  text-align: center;
+}
+
+.witness-title {
+  font-weight: 700;
+  margin: 6px 0 3px;
+  font-size: 10.5pt;
+}
+
+.witness-table-list {
+  width: 100%;
+  border-collapse: collapse;
+  margin-left: 14px;
+  font-size: 10.2pt;
+}
+.witness-table-list td {
+  padding: 2.5px 4px;
+  vertical-align: bottom;
+}
+.witness-table-list .w-num { width: 22px; }
+.witness-table-list .w-name { width: 34%; }
+.witness-table-list .w-dots { width: 28%; color: #333; }
+.witness-table-list .w-role { width: 34%; }
+
+.sporadik-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 8px;
+  gap: 12px;
+}
+
+.sporadik-witnesses {
+  width: 56%;
+  font-size: 9.8pt;
+}
+
+.s-witness-item {
+  margin-bottom: 7px;
+  line-height: 1.25;
+}
+
+.sporadik-declarant {
+  width: 40%;
+  text-align: center;
+  font-size: 10.5pt;
+}
+
+.kades-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 24px;
+  font-size: 10.2pt;
+}
+
+.kades-centered {
+  display: block;
+  position: relative;
+  margin-top: 26px;
+}
+
+.kades-centered .kades-sign {
+  width: 100%;
+  text-align: center;
+}
+
+.reg-plain {
+  position: absolute;
+  left: 0;
+  top: 42px;
+  font-size: 10pt;
+  line-height: 1.35;
+}
+
+.reg-lbl {
+  display: inline-block;
+  width: 56px;
+}
+
+.reg-box {
+  padding: 5px 0;
+  line-height: 1.45;
+  font-size: 9.5pt;
+}
+
+.kades-sign {
+  text-align: center;
+  min-width: 210px;
+}
+
+.sign-space-sm {
+  height: 46px;
+}
+
+.dots { color: #555; }
+
+/* =========================================================
+   PRINT / PDF (Exact 21.59cm x 33cm, No Browser Scaling)
+   ========================================================= */
+#print-area {
+  display: none;
+}
+
+@page {
+  size: 21.59cm 33cm;
+  margin: 0;
+}
+
+@media print {
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    width: 21.59cm;
+    height: 33cm;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  #print-area {
+    display: block !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sheet-page {
+    box-shadow: none !important;
+    margin: 0 !important;
+    page-break-after: avoid;
+  }
+}
