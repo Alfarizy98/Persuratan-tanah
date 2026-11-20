@@ -235,12 +235,16 @@
 
     if (step === 3) {
       if (j === 'sporadik') {
+        const placeholders = [
+          { nama: 'Contoh: MUHAMMAD IRWANSYAH', pekerjaan: 'Contoh: Kepala Dusun Sipudeceng', alamat: 'Contoh: Dusun Sipudeceng, Desa Tobadak' },
+          { nama: 'Contoh: M. TAKDIR', pekerjaan: 'Contoh: Ketua RT.003', alamat: 'Contoh: Dusun Sipudeceng, Desa Tobadak' }
+        ];
         return [0, 1].map((i) => `
           <fieldset class="border border-zinc-200 dark:border-zinc-800 rounded-md p-3 space-y-2.5">
             <legend class="text-xs font-semibold px-1.5 text-zinc-800 dark:text-zinc-200">Saksi ${i + 1}</legend>
-            ${renderField('Nama Saksi', `saksi.${i}.nama`)}
-            ${renderField('Pekerjaan / Jabatan', `saksi.${i}.pekerjaan`)}
-            ${renderField('Alamat', `saksi.${i}.alamat`)}
+            ${renderField('Nama Saksi', `saksi.${i}.nama`, { placeholder: placeholders[i].nama })}
+            ${renderField('Pekerjaan', `saksi.${i}.pekerjaan`, { placeholder: placeholders[i].pekerjaan })}
+            ${renderField('Alamat', `saksi.${i}.alamat`, { placeholder: placeholders[i].alamat })}
           </fieldset>
         `).join('');
       }

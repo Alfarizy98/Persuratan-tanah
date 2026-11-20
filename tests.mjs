@@ -69,7 +69,8 @@ test('render template Ganti Rugi, Hibah, Sporadik sesuai aturan persuratan & tan
 
   const htmlSporadik = T.renderLetter('sporadik', baseData, settings);
   assert.match(htmlSporadik, /SPORADIK/);
-  assert.doesNotMatch(htmlSporadik, /Umur/);
+  assert.match(htmlSporadik, /SAKSI-SAKSI :/);
+  assert.match(htmlSporadik, /Tahun/);
   assert.equal(U.validateForm('sporadik', baseData).length, 0);
   assert.equal(U.validateForm('ganti_rugi', baseData).length, 0);
   assert.equal(U.validateForm('hibah', baseData).length, 0);

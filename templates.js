@@ -277,14 +277,15 @@
 
       <div class="sporadik-bottom">
         <div class="sporadik-witnesses">
-          <div class="witness-title">Saksi-saksi :</div>
+          <div class="s-witness-head">SAKSI-SAKSI :</div>
           ${[0, 1].map((idx) => `
-            <div class="s-witness-item">
-              <div><strong>${idx + 1}. Nama</strong> : ${valOrDots(saksi[idx]?.nama)}</div>
-              <div>&nbsp;&nbsp;&nbsp;Pekerjaan/Jabatan : ${valOrDots(saksi[idx]?.pekerjaan)}</div>
-              <div>&nbsp;&nbsp;&nbsp;Alamat : ${valOrDots(saksi[idx]?.alamat)}</div>
-              <div>&nbsp;&nbsp;&nbsp;Tanda Tangan : (........................)</div>
-            </div>
+            <table class="s-witness-table">
+              <tr><td class="sw-lbl">Nama</td><td class="sw-sep">:</td><td>${upperOrDots(saksi[idx]?.nama)}</td></tr>
+              <tr><td class="sw-lbl">Umur</td><td class="sw-sep">:</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tahun</td></tr>
+              <tr><td class="sw-lbl">Pekerjaan</td><td class="sw-sep">:</td><td>${valOrDots(saksi[idx]?.pekerjaan)}</td></tr>
+              <tr><td class="sw-lbl">Alamat</td><td class="sw-sep">:</td><td>${valOrDots(saksi[idx]?.alamat)}</td></tr>
+              <tr><td class="sw-lbl sw-sign-row">Tanda tangan</td><td class="sw-sep sw-sign-row">:</td><td class="sw-sign-row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(_____________________)</td></tr>
+            </table>
           `).join('')}
         </div>
         <div class="sporadik-declarant">
