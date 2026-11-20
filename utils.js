@@ -112,7 +112,7 @@
       checkPihak(data.pihak1, 'Pihak I (Pertama)');
       checkPihak(data.pihak2, 'Pihak II (Kedua)');
       if (!Number(data.objek?.luas) || Number(data.objek.luas) <= 0) errors.push('Luas tanah harus angka positif');
-      if (!Number(String(data.objek?.harga || '').replace(/[^\d]/g, '')) > 0) errors.push('Harga ganti rugi wajib diisi');
+      if (!(Number(String(data.objek?.harga || '').replace(/[^\d]/g, '')) > 0)) errors.push('Harga ganti rugi wajib diisi');
       if (!String(data.objek?.tahun || '').trim()) errors.push('Tahun transaksi wajib diisi');
       if (!String(data.objek?.dusun || '').trim()) errors.push('Dusun lokasi tanah wajib diisi');
     } else if (jenis === 'hibah') {

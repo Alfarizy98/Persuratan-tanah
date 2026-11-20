@@ -71,6 +71,10 @@ test('render template Ganti Rugi, Hibah, Sporadik sesuai aturan persuratan & tan
   assert.match(htmlSporadik, /SPORADIK/);
   assert.doesNotMatch(htmlSporadik, /Umur/);
   assert.equal(U.validateForm('sporadik', baseData).length, 0);
+  assert.equal(U.validateForm('ganti_rugi', baseData).length, 0);
+  assert.equal(U.validateForm('hibah', baseData).length, 0);
+  assert.ok(U.validateForm('ganti_rugi', { ...baseData, objek: { ...baseData.objek, harga: '' } }).length > 0);
+  assert.ok(U.validateForm('hibah', { ...baseData, pihak2: { ...baseData.pihak2, nik: '123' } }).length > 0);
 });
 
 test('arsip sementara kedaluwarsa otomatis setelah 72 jam & verifikasi PIN', async () => {

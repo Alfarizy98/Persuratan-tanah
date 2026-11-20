@@ -401,7 +401,7 @@
     const drafts = S.loadDrafts();
     const el = $('copy-list');
     if (drafts.length === 0) {
-      el.innerHTML = '<p style="font-size:0.85rem; color:var(--muted);">Belum ada draf di Arsip Sementara.</p>';
+      el.innerHTML = '<p class="text-xs text-zinc-500 dark:text-zinc-400">Belum ada draf di Arsip Sementara.</p>';
     } else {
       const items = [];
       drafts.forEach((d) => {
@@ -413,7 +413,7 @@
         }
       });
       el.innerHTML = items.length === 0
-        ? '<p style="font-size:0.85rem; color:var(--muted);">Tidak ada data pihak yang tersimpan.</p>'
+        ? '<p class="text-xs text-zinc-500 dark:text-zinc-400">Tidak ada data pihak yang tersimpan.</p>'
         : items.map((it, idx) => `
           <div class="flex items-center justify-between gap-2 py-2.5">
             <span class="text-xs sm:text-sm">${U.escapeHtml(it.label)}</span>
@@ -522,8 +522,12 @@
     $('preview-zoom').addEventListener('input', applyPreviewZoom);
 
     $('btn-save-draft').addEventListener('click', () => {
-      saveCurrentDraft('draf');
-      alert('Draf disimpan ke Arsip Sementara (berlaku 3 hari / 72 jam).');
+      try {
+        saveCurrentDraft('draf');
+        alert('Draf disimpan ke Arsip Sementara (berlaku 3 hari / 72 jam).');
+      } catch (err) {
+        alert(err.message);
+      }
     });
 
     $('btn-print').addEventListener('click', printLetter);
@@ -605,22 +609,30 @@
     });
     $('btn-save-settings').addEventListener('click', async () => {
       const file = $('set-logo-file').files?.[0];
+      if (file && file.size > 1.5 * 1024 * 1024) {
+        alert('Ukuran file logo maksimal 1,5 MB agar tidak memenuhi penyimpanan browser.');
+        return;
+      }
       const finishSave = async (logoDataUrl) => {
-        state.settings.nama_kades = $('set-kades').value.trim() || 'KORNELIUS';
-        state.settings.desa = $('set-desa').value.trim() || 'Tobadak';
-        state.settings.kecamatan = $('set-kecamatan').value.trim() || 'Tobadak';
-        state.settings.kabupaten = $('set-kabupaten').value.trim() || 'Mamuju Tengah';
-        state.settings.preset_saksi = [
-          { nama: $('set-kadus').value.trim(), jabatan: 'Kepala Dusun' },
-          { nama: $('set-rt').value.trim(), jabatan: 'Ketua RT' }
-        ];
-        if (logoDataUrl !== undefined) state.settings.logo_watermark = logoDataUrl;
-        S.saveSettings(state.settings);
-        const newPin = $('set-new-pin').value.trim();
-        if (newPin) await S.setPin(newPin);
-        $('modal-settings').classList.add('hidden');
-        updateTopbar();
-        if (state.view === 'editor') renderPreview();
+        try {
+          state.settings.nama_kades = $('set-kades').value.trim() || 'KORNELIUS';
+          state.settings.desa = $('set-desa').value.trim() || 'Tobadak';
+          state.settings.kecamatan = $('set-kecamatan').value.trim() || 'Tobadak';
+          state.settings.kabupaten = $('set-kabupaten').value.trim() || 'Mamuju Tengah';
+          state.settings.preset_saksi = [
+            { nama: $('set-kadus').value.trim(), jabatan: 'Kepala Dusun' },
+            { nama: $('set-rt').value.trim(), jabatan: 'Ketua RT' }
+          ];
+          if (logoDataUrl !== undefined) state.settings.logo_watermark = logoDataUrl;
+          S.saveSettings(state.settings);
+          const newPin = $('set-new-pin').value.trim();
+          if (newPin) await S.setPin(newPin);
+          $('modal-settings').classList.add('hidden');
+          updateTopbar();
+          if (state.view === 'editor') renderPreview();
+        } catch (err) {
+          alert(err.message);
+        }
       };
 
       if (file) {

@@ -28,37 +28,28 @@
     return storageObj || (typeof localStorage !== 'undefined' ? localStorage : null);
   }
 
-  function hashPinFallback(pin) {
-    // shortcut: fallback hash if WebCrypto is unavailable on file://; upgrade to mandatory WebCrypto on HTTPS
+  function hashPinSync(pin) {
+    // shortcut: deterministic local hash so PIN works identically on file:// and localhost; upgrade to pure-JS SHA-256 if multi-user server auth is added
+    const s = 'tobadak:' + String(pin || '');
     let h = 2166136261;
-    for (let i = 0; i < pin.length; i++) {
-      h ^= pin.charCodeAt(i);
+    for (let i = 0; i < s.length; i++) {
+      h ^= s.charCodeAt(i);
       h = Math.imul(h, 16777619);
     }
     return 'fb_' + (h >>> 0).toString(16);
   }
 
-  async function hashPin(pin) {
-    const s = String(pin || '');
-    if (typeof crypto !== 'undefined' && crypto.subtle && typeof TextEncoder !== 'undefined') {
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('tobadak:' + s));
-      return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
-    }
-    return hashPinFallback(s);
-  }
-
   async function verifyPin(inputPin, storageObj) {
     const store = getStore(storageObj);
     const saved = store ? store.getItem(KEYS.PIN) : null;
-    const targetHash = saved || await hashPin(DEFAULT_PIN);
-    const inputHash = await hashPin(inputPin);
-    return inputHash === targetHash;
+    const targetHash = saved || hashPinSync(DEFAULT_PIN);
+    return hashPinSync(inputPin) === targetHash;
   }
 
   async function setPin(newPin, storageObj) {
     const store = getStore(storageObj);
     if (!store) return;
-    store.setItem(KEYS.PIN, await hashPin(newPin));
+    store.setItem(KEYS.PIN, hashPinSync(newPin));
   }
 
   function getSettings(storageObj) {
@@ -73,10 +64,18 @@
     }
   }
 
+  function safeSetItem(store, key, value) {
+    try {
+      store.setItem(key, value);
+    } catch (err) {
+      throw new Error('Penyimpanan lokal penuh. Hapus draf lama atau perkecil ukuran logo watermark.');
+    }
+  }
+
   function saveSettings(settings, storageObj) {
     const store = getStore(storageObj);
     if (!store) return;
-    store.setItem(KEYS.SETTINGS, JSON.stringify({ ...DEFAULT_SETTINGS, ...settings }));
+    safeSetItem(store, KEYS.SETTINGS, JSON.stringify({ ...DEFAULT_SETTINGS, ...settings }));
   }
 
   // Simple local encryption/obfuscation so personal data (NIK/address) is not plaintext in localStorage
@@ -140,14 +139,14 @@
     };
     if (existingIdx >= 0) drafts[existingIdx] = record;
     else drafts.unshift(record);
-    if (store) store.setItem(KEYS.DRAFTS, encodePayload(drafts));
+    if (store) safeSetItem(store, KEYS.DRAFTS, encodePayload(drafts));
     return record;
   }
 
   function deleteDraft(id, storageObj) {
     const store = getStore(storageObj);
     const drafts = loadDrafts(store).filter((d) => d.id !== id);
-    if (store) store.setItem(KEYS.DRAFTS, encodePayload(drafts));
+    if (store) safeSetItem(store, KEYS.DRAFTS, encodePayload(drafts));
     return drafts;
   }
 
