@@ -641,6 +641,21 @@
     });
   }
 
+  // PWA Install Prompt
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    $('btn-install')?.classList.remove('hidden');
+  });
+  $('btn-install')?.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    $('btn-install').classList.add('hidden');
+  });
+
   // Init
   if (window.innerWidth < 640) {
     $('preview-zoom').value = '0.4';

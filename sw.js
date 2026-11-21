@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tobadak-surat-v1';
+const CACHE_NAME = 'tobadak-surat-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -9,6 +9,8 @@ const ASSETS = [
   './storage.js',
   './watermark-mamuju-tengah.png',
   './Favicon.png',
+  './icon-192.png',
+  './icon-512.png',
   './manifest.webmanifest'
 ];
 
@@ -28,8 +30,22 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', copy));
+          return res;
+        })
+        .catch(() => caches.match(event.request, { ignoreSearch: true }).then((c) => c || caches.match('./index.html')))
+    );
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then((cached) => {
+    caches.match(event.request, { ignoreSearch: true }).then((cached) => {
       const fetched = fetch(event.request)
         .then((res) => {
           if (res && res.status === 200 && res.type === 'basic') {
