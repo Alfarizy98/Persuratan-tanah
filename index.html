@@ -3,160 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#18181b" />
   <title>Administrasi Pertanahan – Desa Tobadak</title>
   <link rel="icon" type="image/png" href="Favicon.png" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: ['selector', '[data-theme="dark"]'],
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif']
-          }
-        }
-      }
-    };
-  </script>
+  <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 antialiased min-h-screen">
+<body>
   <!-- TOPBAR -->
-  <header class="no-print sticky top-0 z-30 bg-white/95 dark:bg-zinc-900/95 backdrop-blur border-b border-zinc-200 dark:border-zinc-800">
-    <div class="max-w-[1440px] mx-auto px-3 sm:px-6 py-2 min-h-14 flex flex-wrap items-center justify-between gap-2">
-      <div class="flex items-center gap-2.5 min-w-0">
-        <img src="watermark-mamuju-tengah.png" alt="Logo" class="h-7 w-7 sm:h-8 sm:w-8 object-contain shrink-0" />
-        <div class="truncate">
-          <div class="text-sm font-semibold tracking-tight leading-tight">Administrasi Pertanahan</div>
-          <div id="brand-sub" class="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 truncate">Desa Tobadak, Kec. Tobadak, Kab. Mamuju Tengah</div>
+  <header class="topbar no-print">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img src="watermark-mamuju-tengah.png" alt="Logo" />
+        <div style="min-width:0;">
+          <div class="brand-title">Administrasi Pertanahan</div>
+          <div id="brand-sub" class="brand-sub">Desa Tobadak, Kec. Tobadak, Kab. Mamuju Tengah</div>
         </div>
       </div>
 
-      <nav class="flex flex-wrap items-center gap-1 sm:gap-2">
-        <button id="nav-home" class="px-3 py-1.5 text-xs sm:text-sm font-medium rounded-md text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800">
-          Beranda
+      <nav class="nav-actions">
+        <button id="nav-home" class="btn btn-ghost">Beranda</button>
+        <button id="nav-archive" class="btn btn-ghost">
+          Arsip <span id="archive-count" class="badge">0</span>
         </button>
-        <button id="nav-archive" class="px-3 py-1.5 text-xs sm:text-sm font-medium rounded-md text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 inline-flex items-center gap-1.5">
-          Arsip
-          <span id="archive-count" class="px-1.5 py-0.5 text-[11px] font-semibold rounded bg-zinc-200 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-100">0</span>
-        </button>
-        <button id="nav-settings" class="px-3 py-1.5 text-xs sm:text-sm font-medium rounded-md text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800">
-          Pengaturan
-        </button>
-        <div class="h-4 w-px bg-zinc-200 dark:bg-zinc-700 mx-0.5"></div>
-        <button id="toggle-theme" class="px-2.5 py-1.5 text-xs font-medium rounded-md border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800" title="Ganti Mode Gelap/Terang">
-          Tema
-        </button>
-        <button id="btn-lock" class="px-2.5 py-1.5 text-xs font-medium rounded-md border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800" title="Kunci Aplikasi">
-          Kunci
-        </button>
+        <button id="nav-settings" class="btn btn-ghost">Pengaturan</button>
+        <span class="nav-sep"></span>
+        <button id="toggle-theme" class="btn btn-sm" title="Ganti Mode Gelap/Terang">Tema</button>
+        <button id="btn-lock" class="btn btn-sm" title="Kunci Aplikasi">Kunci</button>
       </nav>
     </div>
   </header>
 
-  <main class="no-print max-w-[1440px] mx-auto px-4 sm:px-6 py-6">
+  <main class="container no-print">
     <!-- BERANDA -->
-    <section id="view-home" class="space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 pb-4 border-b border-zinc-200 dark:border-zinc-800">
-        <div>
-          <h1 class="text-lg font-semibold tracking-tight">Pembuatan Surat Pertanahan</h1>
-          <p class="text-sm text-zinc-500 dark:text-zinc-400">Standar cetak Folio/F4 (21,59 × 33 cm) · Draf sementara tersimpan 72 jam.</p>
-        </div>
+    <section id="view-home">
+      <div class="section-head">
+        <h1>Pembuatan Surat Pertanahan</h1>
+        <p>Standar cetak Folio/F4 (21,59 × 33 cm) · Bekerja offline · Draf sementara tersimpan 72 jam.</p>
       </div>
 
-      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg divide-y divide-zinc-200 dark:divide-zinc-800">
-        <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-zinc-50/70 dark:hover:bg-zinc-800/40 transition-colors">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 text-[11px] font-mono font-semibold rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">01</span>
-              <h2 class="text-sm sm:text-base font-semibold">Surat Keterangan Ganti Rugi Tanah</h2>
+      <div class="registry-list">
+        <div class="registry-row">
+          <div>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
+              <span class="doc-num">01</span>
+              <strong style="font-size:0.95rem;">Surat Keterangan Ganti Rugi Tanah</strong>
             </div>
-            <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">Penyerahan/pelepasan hak atas tanah pekarangan atau kebun antara Pihak I (Pertama) Penjual dan Pihak II (Kedua) Pembeli.</p>
+            <div style="font-size:0.83rem; color:var(--muted);">Penyerahan/pelepasan hak atas tanah pekarangan atau kebun antara Pihak I (Pertama) Penjual dan Pihak II (Kedua) Pembeli.</div>
           </div>
-          <button data-new="ganti_rugi" class="shrink-0 px-4 py-2 text-xs sm:text-sm font-medium rounded-md bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">
-            Buat Surat
-          </button>
+          <button data-new="ganti_rugi" class="btn btn-primary" style="flex-shrink:0;">Buat Surat</button>
         </div>
 
-        <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-zinc-50/70 dark:hover:bg-zinc-800/40 transition-colors">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 text-[11px] font-mono font-semibold rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">02</span>
-              <h2 class="text-sm sm:text-base font-semibold">Surat Keterangan Hibah Tanah</h2>
+        <div class="registry-row">
+          <div>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
+              <span class="doc-num">02</span>
+              <strong style="font-size:0.95rem;">Surat Keterangan Hibah Tanah</strong>
             </div>
-            <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">Pemberian hibah sebidang tanah dari Pihak I (Pertama) Pemberi Hibah kepada Pihak II (Kedua) Penerima Hibah.</p>
+            <div style="font-size:0.83rem; color:var(--muted);">Pemberian hibah sebidang tanah dari Pihak I (Pertama) Pemberi Hibah kepada Pihak II (Kedua) Penerima Hibah.</div>
           </div>
-          <button data-new="hibah" class="shrink-0 px-4 py-2 text-xs sm:text-sm font-medium rounded-md bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">
-            Buat Surat
-          </button>
+          <button data-new="hibah" class="btn btn-primary" style="flex-shrink:0;">Buat Surat</button>
         </div>
 
-        <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-zinc-50/70 dark:hover:bg-zinc-800/40 transition-colors">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 text-[11px] font-mono font-semibold rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">03</span>
-              <h2 class="text-sm sm:text-base font-semibold">Surat Pernyataan Penguasaan Fisik Bidang Tanah (Sporadik)</h2>
+        <div class="registry-row">
+          <div>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
+              <span class="doc-num">03</span>
+              <strong style="font-size:0.95rem;">Surat Pernyataan Penguasaan Fisik Bidang Tanah (Sporadik)</strong>
             </div>
-            <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">Pernyataan penguasaan fisik bidang tanah secara terus-menerus beserta asal perolehan dan 2 orang saksi.</p>
+            <div style="font-size:0.83rem; color:var(--muted);">Pernyataan penguasaan fisik bidang tanah secara terus-menerus beserta asal perolehan dan 2 orang saksi.</div>
           </div>
-          <button data-new="sporadik" class="shrink-0 px-4 py-2 text-xs sm:text-sm font-medium rounded-md bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">
-            Buat Surat
-          </button>
+          <button data-new="sporadik" class="btn btn-primary" style="flex-shrink:0;">Buat Surat</button>
         </div>
       </div>
     </section>
 
     <!-- EDITOR -->
     <section id="view-editor" class="hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-5 items-start">
-        <!-- FORM PANEL -->
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
-          <div class="px-4 py-3 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between gap-2 bg-zinc-50/60 dark:bg-zinc-900">
-            <h2 id="editor-title" class="text-sm font-semibold truncate">Formulir Surat</h2>
-            <button id="btn-copy-party" class="px-2.5 py-1 text-xs font-medium rounded border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 shrink-0">
-              Salin Data Pihak
-            </button>
+      <div class="editor-grid">
+        <div class="panel">
+          <div class="panel-head">
+            <strong id="editor-title" style="font-size:0.9rem;">Formulir Surat</strong>
+            <button id="btn-copy-party" class="btn btn-sm">Salin Data Pihak</button>
           </div>
 
-          <div id="step-tabs" class="px-4 pt-3 pb-2 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap gap-1.5"></div>
+          <div id="step-tabs" class="step-tabs"></div>
 
-          <div class="p-4">
-            <div id="form-errors" class="hidden mb-4 p-3 rounded-md bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-red-800 dark:text-red-200 text-xs"></div>
-            <div id="form-body" class="space-y-3"></div>
+          <div class="panel-body">
+            <div id="form-errors" class="error-banner hidden"></div>
+            <div id="form-body"></div>
           </div>
 
-          <div class="px-4 py-3 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-900 flex flex-wrap items-center justify-between gap-2">
-            <div class="flex items-center gap-1.5">
-              <button id="btn-prev-step" class="px-2.5 py-1.5 text-xs font-medium rounded border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-40">
-                Sebelumnya
-              </button>
-              <button id="btn-next-step" class="px-2.5 py-1.5 text-xs font-medium rounded border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-40">
-                Berikutnya
-              </button>
+          <div class="panel-foot">
+            <div style="display:flex; gap:0.4rem;">
+              <button id="btn-prev-step" class="btn btn-sm">Sebelumnya</button>
+              <button id="btn-next-step" class="btn btn-sm">Berikutnya</button>
             </div>
-            <div class="flex items-center gap-2 flex-wrap">
-              <button id="btn-save-draft" class="px-3 py-1.5 text-xs font-medium rounded-md border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800">
-                Simpan Draf
-              </button>
-              <button id="btn-print" class="px-3.5 py-1.5 text-xs font-medium rounded-md bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">
-                Cetak / Simpan PDF
-              </button>
+            <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+              <button id="btn-save-draft" class="btn btn-sm">Simpan Draf</button>
+              <button id="btn-print" class="btn btn-sm btn-primary">Cetak / Simpan PDF</button>
             </div>
           </div>
         </div>
 
-        <!-- PREVIEW PANEL -->
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
-          <div class="px-4 py-2.5 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-2">
-            <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Pratinjau Dokumen · F4 (21,59 × 33 cm)</span>
-            <label class="text-xs text-zinc-600 dark:text-zinc-300 flex items-center gap-2">
+        <div class="panel">
+          <div class="panel-head">
+            <span style="font-size:0.75rem; font-weight:600; color:var(--muted); text-transform:uppercase;">Pratinjau · F4 (21,59 × 33 cm)</span>
+            <label style="font-size:0.75rem; color:var(--muted); display:flex; align-items:center; gap:0.4rem;">
               Skala
-              <input type="range" id="preview-zoom" min="0.3" max="1" step="0.05" value="0.65" class="accent-zinc-800 dark:accent-zinc-200 w-24 sm:w-32" />
-              <span id="zoom-label" class="font-mono w-9 text-right">65%</span>
+              <input type="range" id="preview-zoom" min="0.3" max="1" step="0.05" value="0.65" style="width:6rem;" />
+              <span id="zoom-label" style="font-family:monospace; width:2.5rem; text-align:right;">65%</span>
             </label>
           </div>
-          <div class="overflow-auto bg-zinc-200/80 dark:bg-zinc-950 p-3 sm:p-6">
-            <div class="preview-scale mx-auto" id="preview-scale">
+          <div class="preview-desk">
+            <div class="preview-scale" id="preview-scale">
               <div id="live-preview"></div>
             </div>
           </div>
@@ -165,12 +125,12 @@
     </section>
 
     <!-- ARSIP SEMENTARA -->
-    <section id="view-archive" class="hidden space-y-4">
-      <div class="pb-3 border-b border-zinc-200 dark:border-zinc-800">
-        <h1 class="text-lg font-semibold tracking-tight">Arsip Sementara</h1>
-        <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">Draf terhapus otomatis setelah 3 hari (72 jam) sejak terakhir disimpan. Cetak atau simpan PDF jika diperlukan.</p>
+    <section id="view-archive" class="hidden">
+      <div class="section-head">
+        <h1>Arsip Sementara</h1>
+        <p>Draf terhapus otomatis setelah 3 hari (72 jam) sejak terakhir disimpan. Cetak atau simpan PDF jika diperlukan.</p>
       </div>
-      <div id="archive-list" class="space-y-2.5"></div>
+      <div id="archive-list"></div>
     </section>
   </main>
 
@@ -178,94 +138,88 @@
   <div id="print-area"></div>
 
   <!-- MODAL PENGATURAN -->
-  <div id="modal-settings" class="hidden fixed inset-0 z-50 bg-zinc-950/60 backdrop-blur-[1px] flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg max-w-lg w-full max-h-[90vh] overflow-y-auto p-5 space-y-3">
-      <h3 class="text-base font-semibold border-b border-zinc-200 dark:border-zinc-800 pb-2">Pengaturan Kantor Desa</h3>
-      <div>
-        <label class="block text-xs font-medium mb-1">Nama Kepala Desa</label>
+  <div id="modal-settings" class="modal-backdrop hidden">
+    <div class="modal-box">
+      <h3>Pengaturan Kantor Desa</h3>
+      <div class="field-group">
+        <label class="field-lbl">Nama Kepala Desa</label>
         <input type="text" id="set-kades" class="ui-input" />
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-          <label class="block text-xs font-medium mb-1">Desa</label>
+      <div class="field-grid-2">
+        <div class="field-group">
+          <label class="field-lbl">Desa</label>
           <input type="text" id="set-desa" class="ui-input" />
         </div>
-        <div>
-          <label class="block text-xs font-medium mb-1">Kecamatan</label>
+        <div class="field-group">
+          <label class="field-lbl">Kecamatan</label>
           <input type="text" id="set-kecamatan" class="ui-input" />
         </div>
       </div>
-      <div>
-        <label class="block text-xs font-medium mb-1">Kabupaten</label>
+      <div class="field-group">
+        <label class="field-lbl">Kabupaten</label>
         <input type="text" id="set-kabupaten" class="ui-input" />
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-          <label class="block text-xs font-medium mb-1">Preset Kepala Dusun</label>
+      <div class="field-grid-2">
+        <div class="field-group">
+          <label class="field-lbl">Preset Kepala Dusun</label>
           <input type="text" id="set-kadus" placeholder="Nama default" class="ui-input" />
         </div>
-        <div>
-          <label class="block text-xs font-medium mb-1">Preset Ketua RT</label>
+        <div class="field-group">
+          <label class="field-lbl">Preset Ketua RT</label>
           <input type="text" id="set-rt" placeholder="Nama default" class="ui-input" />
         </div>
       </div>
-      <div>
-        <label class="block text-xs font-medium mb-1">Logo Watermark (PNG/JPG/SVG)</label>
-        <input type="file" id="set-logo-file" accept="image/*" class="text-xs block w-full" />
-        <p class="text-[11px] text-zinc-500 mt-1">Kosongkan untuk memakai lambang resmi Kab. Mamuju Tengah.</p>
-        <button id="btn-reset-logo" class="mt-1.5 px-2.5 py-1 text-xs rounded border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800">
-          Reset Logo Default
-        </button>
+      <div class="field-group">
+        <label class="field-lbl">Logo Watermark (PNG/JPG/SVG)</label>
+        <input type="file" id="set-logo-file" accept="image/*" style="font-size:0.78rem;" />
+        <div class="field-hint">Kosongkan untuk memakai lambang resmi Kab. Mamuju Tengah.</div>
+        <button id="btn-reset-logo" class="btn btn-sm" style="margin-top:0.35rem;">Reset Logo Default</button>
       </div>
-      <div>
-        <label class="block text-xs font-medium mb-1">Ubah PIN Operator (opsional)</label>
+      <div class="field-group">
+        <label class="field-lbl">Ubah PIN Operator (opsional)</label>
         <input type="password" id="set-new-pin" placeholder="Isi PIN baru jika ingin mengubah" class="ui-input" />
       </div>
-      <div class="flex justify-end gap-2 pt-3 border-t border-zinc-200 dark:border-zinc-800">
-        <button id="btn-close-settings" class="px-3 py-1.5 text-xs font-medium rounded border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800">Batal</button>
-        <button id="btn-save-settings" class="px-3.5 py-1.5 text-xs font-medium rounded bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900">Simpan</button>
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1rem;">
+        <button id="btn-close-settings" class="btn">Batal</button>
+        <button id="btn-save-settings" class="btn btn-primary">Simpan</button>
       </div>
     </div>
   </div>
 
   <!-- MODAL SALIN DATA PIHAK -->
-  <div id="modal-copy" class="hidden fixed inset-0 z-50 bg-zinc-950/60 backdrop-blur-[1px] flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg max-w-lg w-full max-h-[85vh] overflow-y-auto p-5 space-y-3">
-      <h3 class="text-base font-semibold">Salin Data Pihak dari Arsip</h3>
-      <p class="text-xs text-zinc-500 dark:text-zinc-400">Pilih pihak dari draf tersimpan untuk disalin ke formulir saat ini:</p>
-      <div id="copy-list" class="divide-y divide-zinc-200 dark:divide-zinc-800"></div>
-      <div class="flex justify-end pt-2">
-        <button id="btn-close-copy" class="px-3 py-1.5 text-xs font-medium rounded border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800">Tutup</button>
+  <div id="modal-copy" class="modal-backdrop hidden">
+    <div class="modal-box">
+      <h3>Salin Data Pihak dari Arsip</h3>
+      <p style="font-size:0.8rem; color:var(--muted); margin-top:0;">Pilih pihak dari draf tersimpan untuk disalin ke formulir saat ini:</p>
+      <div id="copy-list"></div>
+      <div style="display:flex; justify-content:flex-end; margin-top:1rem;">
+        <button id="btn-close-copy" class="btn">Tutup</button>
       </div>
     </div>
   </div>
 
   <!-- MODAL KONFIRMASI SETELAH CETAK -->
-  <div id="modal-post-print" class="hidden fixed inset-0 z-50 bg-zinc-950/60 backdrop-blur-[1px] flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg max-w-md w-full p-5 space-y-3">
-      <h3 class="text-base font-semibold">Surat Selesai Dicetak?</h3>
-      <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300">Apakah draf ini ingin dihapus dari Arsip Sementara sekarang? Secara bawaan, draf tetap disimpan hingga 72 jam.</p>
-      <div class="flex justify-end gap-2 pt-2">
-        <button id="btn-keep-after-print" class="px-3.5 py-1.5 text-xs font-medium rounded bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900">Simpan di Arsip</button>
-        <button id="btn-delete-after-print" class="px-3 py-1.5 text-xs font-medium rounded bg-red-600 text-white hover:bg-red-700">Hapus dari Arsip</button>
+  <div id="modal-post-print" class="modal-backdrop hidden">
+    <div class="modal-box" style="max-width:26rem;">
+      <h3>Surat Selesai Dicetak?</h3>
+      <p style="font-size:0.85rem; color:var(--muted);">Apakah draf ini ingin dihapus dari Arsip Sementara sekarang? Secara bawaan, draf tetap disimpan hingga 72 jam.</p>
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1rem;">
+        <button id="btn-keep-after-print" class="btn btn-primary">Simpan di Arsip</button>
+        <button id="btn-delete-after-print" class="btn btn-danger">Hapus dari Arsip</button>
       </div>
     </div>
   </div>
 
   <!-- MODAL PIN LOCK -->
-  <div id="modal-pin" class="hidden fixed inset-0 z-50 bg-zinc-950/70 backdrop-blur-[2px] flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg max-w-xs w-full p-5 space-y-3">
-      <div>
-        <h3 class="text-base font-semibold">Akses Operator</h3>
-        <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Masukkan PIN untuk membuka aplikasi.</p>
-      </div>
-      <div>
+  <div id="modal-pin" class="modal-backdrop hidden">
+    <div class="modal-box" style="max-width:21rem;">
+      <h3>Akses Operator</h3>
+      <p style="font-size:0.8rem; color:var(--muted); margin-top:0;">Masukkan PIN untuk membuka aplikasi.</p>
+      <div class="field-group">
         <input type="password" id="pin-input" placeholder="PIN Operator" autocomplete="off" class="ui-input" />
-        <div id="pin-error" class="hidden text-xs text-red-600 dark:text-red-400 mt-1">PIN salah. Silakan coba lagi.</div>
+        <div id="pin-error" class="field-error hidden">PIN salah. Silakan coba lagi.</div>
       </div>
-      <button id="btn-unlock" class="w-full py-2 text-xs font-semibold rounded-md bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900">
-        Buka Aplikasi
-      </button>
+      <button id="btn-unlock" class="btn btn-primary" style="width:100%;">Buka Aplikasi</button>
     </div>
   </div>
 
@@ -273,5 +227,10 @@
   <script src="templates.js"></script>
   <script src="storage.js"></script>
   <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  </script>
 </body>
 </html>

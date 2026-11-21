@@ -1,0 +1,17 @@
+{
+  "name": "Administrasi Pertanahan – Desa Tobadak",
+  "short_name": "Surat Tanah",
+  "description": "Aplikasi pembuat surat tanah Desa Tobadak (Ganti Rugi, Hibah, Sporadik) ukuran F4.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#18181b",
+  "icons": [
+    {
+      "src": "Favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

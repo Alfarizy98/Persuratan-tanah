@@ -109,28 +109,28 @@
     } else {
       inputHtml = `<input type="${type}" data-path="${path}" value="${U.escapeHtml(val)}" placeholder="${U.escapeHtml(placeholder)}" class="ui-input" ${extraAttr} />`;
     }
-    let hintHtml = opts.hint ? `<div class="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1">${opts.hint}</div>` : '';
+    let hintHtml = opts.hint ? `<div class="field-hint">${opts.hint}</div>` : '';
     if (opts.isNik && val) {
       const err = U.validateNIK(val);
-      if (err) hintHtml = `<div class="field-error text-[11px] text-red-600 dark:text-red-400 mt-1">${err}</div>`;
+      if (err) hintHtml = `<div class="field-error">${err}</div>`;
     }
     if (opts.isHarga && val) {
       const t = U.terbilang(val);
-      hintHtml = `<div class="field-hint text-[11px] text-zinc-500 dark:text-zinc-400 mt-1">${U.formatRupiah(val)} ${t ? `(${t})` : ''}</div>`;
+      hintHtml = `<div class="field-hint">${U.formatRupiah(val)} ${t ? `(${t})` : ''}</div>`;
     }
-    return `<div class="field-group"><label class="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">${label}</label>${inputHtml}${hintHtml}</div>`;
+    return `<div class="field-group"><label class="field-lbl">${label}</label>${inputHtml}${hintHtml}</div>`;
   }
 
   function renderPihakFields(prefix, title) {
     return `
-      <fieldset class="border border-zinc-200 dark:border-zinc-800 rounded-md p-3 space-y-2.5">
-        <legend class="text-xs font-semibold px-1.5 text-zinc-800 dark:text-zinc-200">${title}</legend>
+      <fieldset class="ui-fieldset">
+        <legend>${title}</legend>
         ${renderField('Nama Lengkap', `${prefix}.nama`, { placeholder: 'Otomatis kapital di surat' })}
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <div class="field-grid-2">
           ${renderField('Tempat Lahir', `${prefix}.tempat_lahir`)}
           ${renderField('Tanggal Lahir', `${prefix}.tanggal_lahir`, { type: 'date' })}
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <div class="field-grid-2">
           ${renderField('NIK (16 digit)', `${prefix}.nik`, { maxlength: 16, isNik: true, placeholder: '16 digit angka' })}
           ${renderField('Agama', `${prefix}.agama`, { type: 'select', options: AGAMA_LIST })}
         </div>
@@ -159,20 +159,20 @@
     if (step === 1) {
       if (j === 'ganti_rugi') {
         return `
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div class="field-grid-2">
             ${renderField('Jenis Tanah', 'objek.jenis_tanah', { type: 'select', options: ['Tanah Pekarangan', 'Tanah Kebun', 'Tanah Sawah'] })}
             ${renderField('No. Sertifikat (opsional)', 'objek.no_sertifikat')}
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div class="field-grid-2">
             ${renderField('Luas Tanah (m²)', 'objek.luas', { type: 'number', placeholder: 'Contoh: 325' })}
             ${renderField('Tahun Transaksi', 'objek.tahun', { type: 'number' })}
           </div>
           ${renderField('Harga Ganti Rugi (Rp)', 'objek.harga', { type: 'number', isHarga: true, placeholder: 'Contoh: 70000000' })}
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div class="field-grid-2">
             ${renderField('RT', 'objek.rt')}
             ${renderField('Dusun', 'objek.dusun')}
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div class="field-grid-2">
             ${renderField('Desa', 'objek.desa')}
             ${renderField('Kecamatan', 'objek.kecamatan')}
           </div>
@@ -181,15 +181,15 @@
       }
       if (j === 'hibah') {
         return `
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div class="field-grid-2">
             ${renderField('Luas Tanah (m²)', 'objek.luas', { type: 'number', placeholder: 'Contoh: 400' })}
             ${renderField('Tahun Hibah', 'objek.tahun', { type: 'number' })}
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div class="field-grid-2">
             ${renderField('RT', 'objek.rt')}
             ${renderField('Dusun', 'objek.dusun')}
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div class="field-grid-2">
             ${renderField('Desa', 'objek.desa')}
             ${renderField('Kecamatan', 'objek.kecamatan')}
           </div>
@@ -198,25 +198,25 @@
       }
       // Sporadik
       return `
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <div class="field-grid-2">
           ${renderField('Dusun', 'objek.dusun')}
           ${renderField('RT / RW', 'objek.rt')}
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <div class="field-grid-2">
           ${renderField('Desa / Kelurahan', 'objek.desa')}
           ${renderField('Kecamatan', 'objek.kecamatan')}
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <div class="field-grid-2">
           ${renderField('Kabupaten', 'objek.kabupaten')}
           ${renderField('NJB', 'objek.njb', { placeholder: 'Opsional / -' })}
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <div class="field-grid-2">
           ${renderField('Status Tanah', 'objek.status_tanah', { placeholder: 'Tanah Negara' })}
           ${renderField('Digunakan Untuk', 'objek.penggunaan', { placeholder: 'Kebun / Pekarangan' })}
         </div>
         ${renderField('Luas Tanah (m²)', 'objek.luas', { type: 'number' })}
         <hr style="border:0; border-top:1px solid var(--border); margin:0.75rem 0;" />
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <div class="field-grid-2">
           ${renderField('Cara Perolehan', 'perolehan.cara', { type: 'select', options: ['Ganti Rugi', 'Hibah', 'Warisan', 'Pembukaan Lahan', 'Lainnya'] })}
           ${renderField('Tahun Perolehan', 'perolehan.tahun', { type: 'number' })}
         </div>
@@ -240,8 +240,8 @@
           { nama: 'Contoh: M. TAKDIR', pekerjaan: 'Contoh: Ketua RT.003', alamat: 'Contoh: Dusun Sipudeceng, Desa Tobadak' }
         ];
         return [0, 1].map((i) => `
-          <fieldset class="border border-zinc-200 dark:border-zinc-800 rounded-md p-3 space-y-2.5">
-            <legend class="text-xs font-semibold px-1.5 text-zinc-800 dark:text-zinc-200">Saksi ${i + 1}</legend>
+          <fieldset class="ui-fieldset">
+            <legend>Saksi ${i + 1}</legend>
             ${renderField('Nama Saksi', `saksi.${i}.nama`, { placeholder: placeholders[i].nama })}
             ${renderField('Pekerjaan', `saksi.${i}.pekerjaan`, { placeholder: placeholders[i].pekerjaan })}
             ${renderField('Alamat', `saksi.${i}.alamat`, { placeholder: placeholders[i].alamat })}
@@ -249,7 +249,7 @@
         `).join('');
       }
       return [0, 1, 2, 3].map((i) => `
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <div class="field-grid-2">
           ${renderField(`Nama Saksi ${i + 1}`, `saksi.${i}.nama`)}
           ${renderField('Jabatan / Peran', `saksi.${i}.jabatan`)}
         </div>
@@ -260,7 +260,7 @@
     return `
       ${renderField('Tempat Surat', 'penutup.tempat')}
       ${renderField('Tanggal Surat', 'penutup.tanggal', { type: 'date' })}
-      <div class="text-xs text-zinc-500 dark:text-zinc-400">Nama Kepala Desa pada surat mengikuti Pengaturan: <strong class="text-zinc-800 dark:text-zinc-200">${U.escapeHtml(state.settings.nama_kades)}</strong>.</div>
+      <div class="field-hint">Nama Kepala Desa pada surat mengikuti Pengaturan: <strong>${U.escapeHtml(state.settings.nama_kades)}</strong>.</div>
     `;
   }
 
@@ -282,11 +282,7 @@
     $('editor-title').textContent = JENIS_LABEL[state.jenis];
     const steps = getSteps();
     $('step-tabs').innerHTML = steps.map((label, idx) =>
-      `<button class="px-2.5 py-1 text-xs font-medium rounded border transition-colors ${
-        idx === state.step
-          ? 'bg-zinc-900 text-white border-zinc-900 dark:bg-zinc-100 dark:text-zinc-900 dark:border-zinc-100'
-          : 'bg-zinc-50 text-zinc-600 border-zinc-200 hover:bg-zinc-100 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700'
-      }" data-step="${idx}">${idx + 1}. ${label}</button>`
+      `<button class="step-tab ${idx === state.step ? 'active' : ''}" data-step="${idx}">${idx + 1}. ${label}</button>`
     ).join('');
 
     $('form-body').innerHTML = renderStepBody();
@@ -339,32 +335,28 @@
     const drafts = S.loadDrafts();
     const listEl = $('archive-list');
     if (drafts.length === 0) {
-      listEl.innerHTML = `<div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-6 text-sm text-zinc-500 dark:text-zinc-400">Belum ada draf tersimpan di Arsip Sementara.</div>`;
+      listEl.innerHTML = `<div class="panel"><div class="panel-body" style="font-size:0.85rem; color:var(--muted);">Belum ada draf tersimpan di Arsip Sementara.</div></div>`;
       return;
     }
     listEl.innerHTML = drafts.map((d) => {
       const sisa = U.formatSisaWaktu(d.expires_at);
       const tgl = new Date(d.updated_at).toLocaleString('id-ID');
       return `
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div class="space-y-1">
-            <div class="text-sm font-semibold">${U.escapeHtml(d.judul)}</div>
-            <div class="text-xs text-zinc-500 dark:text-zinc-400">
+        <div class="archive-item">
+          <div>
+            <div style="font-size:0.9rem; font-weight:600;">${U.escapeHtml(d.judul)}</div>
+            <div style="font-size:0.78rem; color:var(--muted); margin-top:0.2rem;">
               Disimpan: ${tgl} · Status: ${d.status === 'dicetak' ? 'Sudah dicetak' : 'Draf'}
             </div>
-            <div>
-              <span class="inline-block px-2 py-0.5 text-[11px] font-medium rounded border ${
-                sisa.warning
-                  ? 'bg-amber-50 text-amber-800 border-amber-300 dark:bg-amber-950/50 dark:text-amber-200 dark:border-amber-800'
-                  : 'bg-zinc-100 text-zinc-700 border-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700'
-              }">${sisa.text}</span>
+            <div style="margin-top:0.35rem;">
+              <span class="countdown-pill ${sisa.warning ? 'warn' : ''}">${sisa.text}</span>
             </div>
           </div>
-          <div class="flex items-center gap-1.5 flex-wrap">
-            <button class="px-2.5 py-1.5 text-xs font-medium rounded bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900" data-arch-open="${d.id}">Buka / Edit</button>
-            <button class="px-2.5 py-1.5 text-xs font-medium rounded border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800" data-arch-dup="${d.id}">Duplikat</button>
-            <button class="px-2.5 py-1.5 text-xs font-medium rounded border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800" data-arch-print="${d.id}">Cetak</button>
-            <button class="px-2.5 py-1.5 text-xs font-medium rounded bg-red-600 text-white hover:bg-red-700" data-arch-del="${d.id}">Hapus</button>
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+            <button class="btn btn-sm btn-primary" data-arch-open="${d.id}">Buka / Edit</button>
+            <button class="btn btn-sm" data-arch-dup="${d.id}">Duplikat</button>
+            <button class="btn btn-sm" data-arch-print="${d.id}">Cetak</button>
+            <button class="btn btn-sm btn-danger" data-arch-del="${d.id}">Hapus</button>
           </div>
         </div>
       `;
@@ -405,7 +397,7 @@
     const drafts = S.loadDrafts();
     const el = $('copy-list');
     if (drafts.length === 0) {
-      el.innerHTML = '<p class="text-xs text-zinc-500 dark:text-zinc-400">Belum ada draf di Arsip Sementara.</p>';
+      el.innerHTML = '<p style="font-size:0.8rem; color:var(--muted);">Belum ada draf di Arsip Sementara.</p>';
     } else {
       const items = [];
       drafts.forEach((d) => {
@@ -417,13 +409,13 @@
         }
       });
       el.innerHTML = items.length === 0
-        ? '<p class="text-xs text-zinc-500 dark:text-zinc-400">Tidak ada data pihak yang tersimpan.</p>'
+        ? '<p style="font-size:0.8rem; color:var(--muted);">Tidak ada data pihak yang tersimpan.</p>'
         : items.map((it, idx) => `
-          <div class="flex items-center justify-between gap-2 py-2.5">
-            <span class="text-xs sm:text-sm">${U.escapeHtml(it.label)}</span>
-            <span class="flex items-center gap-1.5 shrink-0">
-              <button class="px-2.5 py-1 text-xs font-medium rounded border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800" data-copy-idx="${idx}" data-target="pihak1">Ke Pihak I</button>
-              ${state.jenis !== 'sporadik' ? `<button class="px-2.5 py-1 text-xs font-medium rounded border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800" data-copy-idx="${idx}" data-target="pihak2">Ke Pihak II</button>` : ''}
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; padding:0.55rem 0; border-bottom:1px solid var(--border);">
+            <span style="font-size:0.8rem;">${U.escapeHtml(it.label)}</span>
+            <span style="display:flex; gap:0.35rem; flex-shrink:0;">
+              <button class="btn btn-sm" data-copy-idx="${idx}" data-target="pihak1">Ke Pihak I</button>
+              ${state.jenis !== 'sporadik' ? `<button class="btn btn-sm" data-copy-idx="${idx}" data-target="pihak2">Ke Pihak II</button>` : ''}
             </span>
           </div>
         `).join('');
@@ -503,14 +495,14 @@
         let hint = group.querySelector('.field-error');
         const err = e.target.value ? U.validateNIK(e.target.value) : '';
         if (err) {
-          if (!hint) { hint = document.createElement('div'); hint.className = 'field-error text-[11px] text-red-600 dark:text-red-400 mt-1'; group.appendChild(hint); }
+          if (!hint) { hint = document.createElement('div'); hint.className = 'field-error'; group.appendChild(hint); }
           hint.textContent = err;
         } else if (hint) {
           hint.remove();
         }
       } else if (path === 'objek.harga') {
         let hint = group.querySelector('.field-hint');
-        if (!hint) { hint = document.createElement('div'); hint.className = 'field-hint text-[11px] text-zinc-500 dark:text-zinc-400 mt-1'; group.appendChild(hint); }
+        if (!hint) { hint = document.createElement('div'); hint.className = 'field-hint'; group.appendChild(hint); }
         const t = U.terbilang(e.target.value);
         hint.textContent = e.target.value ? `${U.formatRupiah(e.target.value)} ${t ? `(${t})` : ''}` : '';
       }
